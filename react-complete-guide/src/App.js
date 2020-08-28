@@ -44,6 +44,12 @@ class App extends Component {
         this.setState({showPersons: !doesShow});
     }
 
+    deletePersonHandler = (personIndex) => {
+        const persons = this.state.persons;
+        persons.splice(personIndex, 1);
+        this.setState({oersons: persons});
+    }
+
     // this.switchNameHandler.bin(this, 'Daniel') is the preferred way.
     // DON'T DO THIS () => this.switchNameHandler('Danny')
     render() {
@@ -60,23 +66,12 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}
-                        click={this.switchNameHandler.bind(this, 'Danny')}
-                        changed={this.nameChangedHandler}>My hobbies: Programming and Anime</Person>
-                    <Person
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-                        click={this.switchNameHandler.bind(this, 'NetOS')}>My hobbies: Programming and Wrestling</Person>
-                    <Person
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age}
-                        click={this.switchNameHandler.bind(this, 'Diego')}>My hobbies: Programming and going to the Gym</Person>
-                    <Person
-                        name={this.state.persons[3].name}
-                        age={this.state.persons[3].age}
-                        click={this.switchNameHandler.bind(this, 'Counter')}>My hobbies: Programming and playing video games</Person>
+                    {this.state.persons.map((person, index) => {
+                        return <Person 
+                        click={this.deletePersonHandler.bind(this, index)}
+                        name={person.name}
+                        age={person.age}/>
+                    })}
                 </div>
             );
         }
