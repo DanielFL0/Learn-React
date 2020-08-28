@@ -55,19 +55,10 @@ class App extends Component {
             cursor: 'pointer'
         };
 
-        return (
-            <div className="App" >
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
-                <button onClick={this.togglePersonsHandler}
-                style={style}>Switch name</button>
-                {
-                this.state.showPersons ?
+        let persons = null;
+
+        if (this.state.showPersons) {
+            persons = (
                 <div>
                     <Person
                         name={this.state.persons[0].name}
@@ -86,8 +77,22 @@ class App extends Component {
                         name={this.state.persons[3].name}
                         age={this.state.persons[3].age}
                         click={this.switchNameHandler.bind(this, 'Counter')}>My hobbies: Programming and playing video games</Person>
-                </div> : null
-                }
+                </div>
+            );
+        }
+
+        return (
+            <div className="App" >
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">Welcome to React</h1>
+                </header>
+                <p className="App-intro">
+                    To get started, edit <code>src/App.js</code> and save to reload.
+            </p>
+                <button onClick={this.togglePersonsHandler}
+                style={style}>Switch name</button>
+                {persons}
             </div>
         );
         // return React.createElement('div', null, React.createElement('h1', null, 'Hello!'));
