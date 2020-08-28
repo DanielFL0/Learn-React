@@ -11,7 +11,8 @@ class App extends Component {
             { name: 'Brana', age: 20 },
             { name: 'Counter', age: 20 }
         ],
-        otherState: 'Some other value'
+        otherState: 'Some other value',
+        showPersons: false
     };
 
     switchNameHandler = (newName) => {
@@ -38,6 +39,11 @@ class App extends Component {
         })
     }
 
+    togglePersonsHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons: !doesShow});
+    }
+
     // this.switchNameHandler.bin(this, 'Daniel') is the preferred way.
     // DON'T DO THIS () => this.switchNameHandler('Danny')
     render() {
@@ -58,25 +64,30 @@ class App extends Component {
                 <p className="App-intro">
                     To get started, edit <code>src/App.js</code> and save to reload.
             </p>
-                <button onClick={this.switchNameHandler.bind(this, 'Danny')}
+                <button onClick={this.togglePersonsHandler}
                 style={style}>Switch name</button>
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age}
-                    click={this.switchNameHandler.bind(this, 'Danny')}
-                    changed={this.nameChangedHandler}>My hobbies: Programming and Anime</Person>
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, 'NetOS')}>My hobbies: Programming and Wrestling</Person>
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age}
-                    click={this.switchNameHandler.bind(this, 'Diego')}>My hobbies: Programming and going to the Gym</Person>
-                <Person
-                    name={this.state.persons[3].name}
-                    age={this.state.persons[3].age}
-                    click={this.switchNameHandler.bind(this, 'Counter')}>My hobbies: Programming and playing video games</Person>
+                {
+                this.state.showPersons ?
+                <div>
+                    <Person
+                        name={this.state.persons[0].name}
+                        age={this.state.persons[0].age}
+                        click={this.switchNameHandler.bind(this, 'Danny')}
+                        changed={this.nameChangedHandler}>My hobbies: Programming and Anime</Person>
+                    <Person
+                        name={this.state.persons[1].name}
+                        age={this.state.persons[1].age}
+                        click={this.switchNameHandler.bind(this, 'NetOS')}>My hobbies: Programming and Wrestling</Person>
+                    <Person
+                        name={this.state.persons[2].name}
+                        age={this.state.persons[2].age}
+                        click={this.switchNameHandler.bind(this, 'Diego')}>My hobbies: Programming and going to the Gym</Person>
+                    <Person
+                        name={this.state.persons[3].name}
+                        age={this.state.persons[3].age}
+                        click={this.switchNameHandler.bind(this, 'Counter')}>My hobbies: Programming and playing video games</Person>
+                </div> : null
+                }
             </div>
         );
         // return React.createElement('div', null, React.createElement('h1', null, 'Hello!'));
