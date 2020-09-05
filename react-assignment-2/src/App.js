@@ -2,20 +2,34 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import InputSource from './InputSource/InputSource';
+import ValidationComponent from './ValidationComponent/ValidationComponent';
+import CharComponent from './CharComponent/CharComponent';
 
 class App extends Component {
   state = {
-    text: [
-      { output: "Daniel" }
-    ]
+      userInput: ""
   };
 
   
   textChangedHandler = (event) => {
-    this.setState({output: event.target.value});
+    this.setState({userInput: event.target.value});
+  }
+
+  deleteCharHandler = ( index ) => {
+    const text = this.state.userInput.split('');
+    text.splice(index, 1);
+    const updatedText = text.join('');
+    this.setState({userInput: updatedText});
   }
 
   render() {
+    const charList = this.state.userInput.split('').map((ch, index) => {
+      return <CharComponent 
+        character={ch} 
+        key={index}
+        clicked={() => this.deleteCharHandler(index)} />;
+    });
+    
     return (
       <div className="App">
         <header className="App-header">
@@ -26,8 +40,11 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <InputSource
-          inputText={this.state.text[0].output}
-          changed={(event) => this.textChangedHandler(event)}/>
+          changed={this.textChangedHandler}
+          inputText={this.state.userInput}/>
+        <ValidationComponent
+          inputTextLength={this.state.userInput.length}/>
+        {charList}
       </div>
     );
   }

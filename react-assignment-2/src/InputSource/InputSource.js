@@ -5,8 +5,12 @@ const inputSource = (props) => {
         <div>
             <input 
             type="text"
-            onChange={props.changed}></input>
-            <p>Hello {props.inputText}</p>
+            onChange={props.changed}
+            value={props.inputText}
+            text={props.inputText}>
+            </input>
+            <p>Message: {props.inputText}</p>
+            <p>Message length: {props.inputText.length}</p>
         </div>
     );
 }
