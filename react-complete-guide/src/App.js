@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import logo from './logo.svg';
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 /*
 const StyledButton = styled.button`
@@ -112,12 +113,13 @@ class App extends Component {
             persons = (
                 <div>
                     {this.state.persons.map((person, index) => {
-                        return <Person 
+                        return <ErrorBoundary key={person.id}>
+                        <Person 
                         click={this.deletePersonHandler.bind(this, index)}
                         changed={(event) => this.nameChangedHandler(event, person.id)}
                         name={person.name}
-                        age={person.age}
-                        key={person.id}/>
+                        age={person.age}/>
+                        </ErrorBoundary>
                     })}
                 </div>
             );
