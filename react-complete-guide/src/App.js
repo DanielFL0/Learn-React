@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import logo from './logo.svg';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
+/*
 const StyledButton = styled.button`
 background-color: ${props => props.alt ? 'red' : 'green'};
 color: white;
@@ -16,6 +17,7 @@ cursor: pointer;
     color: black;
 }
 `;
+*/
 
 class App extends Component {
     state = {
@@ -89,6 +91,7 @@ class App extends Component {
     // this.switchNameHandler.bin(this, 'Daniel') is the preferred way.
     // DON'T DO THIS () => this.switchNameHandler('Danny')
     render() {
+        /*
         const style = {
             backgroundColor: 'green',
             color: 'white',
@@ -101,7 +104,9 @@ class App extends Component {
                 color: 'black'
             }
         };
+        */
         let persons = null;
+        let btnClass = ''; // [classes.Button];
 
         if (this.state.showPersons) {
             persons = (
@@ -116,27 +121,32 @@ class App extends Component {
                     })}
                 </div>
             );
+            //btnClass.push(classes.Red);
+            btnClass = classes.Red;
         }
 
-        let classes = [];
+        let assignedClasses = [];
         if (this.state.persons.length <= 2) {
-            classes.push('red');
+            assignedClasses.push(classes.red);
         }
         if (this.state.persons.length <= 1) {
-            classes.push('bold');
+            assignedClasses.push(classes.bold);
         }
 
         return (
-            <div className="App" >
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
+            <div className={classes.App}>
+                <header className={classes.Appheader}>
+                    <img src={logo} className={classes.Applogo} alt="logo" />
+                    <h1 className={classes.Apptitle}>Welcome to React</h1>
                 </header>
-                <p className="App-intro">
+                <p className={classes.Appintro}>
                     To get started, edit <code>src/App.js</code> and save to reload.
                 </p>
-                <p className={classes.join(' ')}>It works!</p>
-                <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}>Switch name</StyledButton>
+                <p className={assignedClasses.join(' ')}>It works!</p>
+                <button 
+                //alt={this.state.showPersons} 
+                onClick={this.togglePersonsHandler}
+                className={btnClass}>Switch name</button>
                 {persons}
             </div>
         );
