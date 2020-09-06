@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+background-color: ${props => props.alt ? 'red' : 'green'};
+color: white;
+font: inherit;
+border: 1px solid green;
+padding: 8px;
+cursor: pointer;
+&:hover {
+    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+    color: black;
+}
+`;
 
 class App extends Component {
     state = {
@@ -76,13 +90,17 @@ class App extends Component {
     // DON'T DO THIS () => this.switchNameHandler('Danny')
     render() {
         const style = {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
-            border: '1px solid blue',
+            border: '1px solid green',
             padding: '8px',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
         };
-
         let persons = null;
 
         if (this.state.showPersons) {
@@ -100,6 +118,14 @@ class App extends Component {
             );
         }
 
+        let classes = [];
+        if (this.state.persons.length <= 2) {
+            classes.push('red');
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold');
+        }
+
         return (
             <div className="App" >
                 <header className="App-header">
@@ -108,9 +134,9 @@ class App extends Component {
                 </header>
                 <p className="App-intro">
                     To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
-                <button onClick={this.togglePersonsHandler}
-                style={style}>Switch name</button>
+                </p>
+                <p className={classes.join(' ')}>It works!</p>
+                <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}>Switch name</StyledButton>
                 {persons}
             </div>
         );
